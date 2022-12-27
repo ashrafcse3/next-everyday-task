@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Label, Textarea, Button } from "flowbite-react";
+import { Label, Textarea, Button, FileInput } from "flowbite-react";
 
 const index = () => {
     return (
@@ -21,6 +21,18 @@ const index = () => {
                             placeholder="Write your task"
                             required={true}
                             rows={4}
+                        />
+                    </div>
+                    <div id="fileUpload">
+                        <div className="mb-2 block">
+                            <Label
+                                htmlFor="file"
+                                value="Add an image with your task (optional)"
+                            />
+                        </div>
+                        <FileInput
+                            id="file"
+                            helperText="You can add an image with your task"
                         />
                     </div>
                     <Button type="submit">
