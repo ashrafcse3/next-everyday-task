@@ -9,8 +9,8 @@ const Nav1 = () => {
     const { systemTheme, theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
 
-    const { user } = useContext(AuthContext);
-    console.log(user);
+    const { user, logOut } = useContext(AuthContext);
+    console.log(user?.uid);
 
     useEffect(() => {
         setMounted(true);
@@ -33,6 +33,14 @@ const Nav1 = () => {
             )
         }
     };
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                console.log('sign out successful');
+            })
+            .catch(error => console.error(error))
+    }
 
     return (
         <div className="mx-auto max-w-[1200px]">
@@ -63,12 +71,19 @@ const Nav1 = () => {
                     <Link href="/completedtasks">
                         <span className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Completed tasks</span>
                     </Link>
-                    <Link href="/login">
-                        <span className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Login</span>
-                    </Link>
-                    <Link href="/register">
-                        <span className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Register</span>
-                    </Link>
+                    {
+                        !(user?.uid) ?
+                            <>
+                                <Link href="/login">
+                                    <span className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Login</span>
+                                </Link>
+                                <Link href="/register">
+                                    <span className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Register</span>
+                                </Link>
+                            </>
+                            :
+                            <span onClick={handleLogOut} className="cursor-pointer block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Log out</span>
+                    }
                     {renderThemeChanger()}
                 </Navbar.Collapse>
             </Navbar>
