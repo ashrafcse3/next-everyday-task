@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { Label, Textarea, Button, FileInput } from "flowbite-react";
+import PageHeader from "../../components/shared/PageHeader";
 
 const index = () => {
     return (
@@ -7,6 +8,7 @@ const index = () => {
             <Head>
                 <title>Add task | E T</title>
             </Head>
+            <PageHeader title='Add Task' />
             <main>
                 <form className="flex flex-col gap-4">
                     <div id="textarea">
