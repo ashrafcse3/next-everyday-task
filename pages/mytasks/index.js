@@ -7,7 +7,7 @@ const index = () => {
     const { data: tasks, refetch } = useQuery({
         queryKey: ['tasks'],
         queryFn: async () => {
-            const response = await fetch('http://localhost:4000/noncompletedtasks');
+            const response = await fetch('https://everyday-task-server-ashrafcse3.vercel.app/noncompletedtasks');
             return response.json();
         }
     });

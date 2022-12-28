@@ -52,7 +52,7 @@ const index = () => {
 
     const saveTaskToDB = preparedData => {
         // post the data into database
-        fetch('http://localhost:4000/tasks', {
+        fetch('https://everyday-task-server-ashrafcse3.vercel.app/tasks', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

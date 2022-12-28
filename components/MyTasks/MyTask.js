@@ -17,7 +17,7 @@ const MyTask = ({ task: { _id, task, optional_image_sm }, index, refetch }) => {
     }
 
     const handleCompleteTask = _id => {
-        fetch(`http://localhost:4000/maketaskcomplete/${_id}`, {
+        fetch(`https://everyday-task-server-ashrafcse3.vercel.app/maketaskcomplete/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -43,9 +43,11 @@ const MyTask = ({ task: { _id, task, optional_image_sm }, index, refetch }) => {
                 <Dropdown
                     dismissOnClick={false}
                 >
-                    <Dropdown.Item>
-                        <Link href={`/updatetask/${_id}`}>Update</Link>
-                    </Dropdown.Item>
+                    <Link href={`/updatetask/${_id}`}>
+                        <Dropdown.Item>
+                            Update
+                        </Dropdown.Item>
+                    </Link>
                     <Dropdown.Item onClick={() => handleDeleteTask(_id, refetch)}>
                         Delete
                     </Dropdown.Item>

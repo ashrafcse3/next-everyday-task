@@ -1,5 +1,6 @@
 import { Card, Dropdown, Button } from "flowbite-react";
 import { toast } from "react-hot-toast";
+import { handleDeleteTask } from "../shared/js_functions/handleDeleteTask";
 
 const CompletedTasks = ({ task: { _id, task, optional_image_sm }, index, refetch }) => {
     const reduceTaskWords = () => {
@@ -15,7 +16,7 @@ const CompletedTasks = ({ task: { _id, task, optional_image_sm }, index, refetch
     }
 
     const handleNotCompleted = _id => {
-        fetch(`http://localhost:4000/maketaskuncomplete/${_id}`, {
+        fetch(`https://everyday-task-server-ashrafcse3.vercel.app/maketaskuncomplete/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -44,7 +45,7 @@ const CompletedTasks = ({ task: { _id, task, optional_image_sm }, index, refetch
                     <Dropdown.Item>
                         Add a comment
                     </Dropdown.Item>
-                    <Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleDeleteTask(_id, refetch)}>
                         Delete
                     </Dropdown.Item>
                 </Dropdown>
