@@ -101,7 +101,6 @@ const index = () => {
                         </div>
                         <FileInput
                             id="file"
-                            helperText="You can add an image with your task"
                             {...register('task_image')}
                         />
                     </div>

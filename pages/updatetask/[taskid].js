@@ -6,27 +6,16 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import PageLoader from "next/dist/client/page-loader";
 
-const updatetask = ({ task }) => {
+const updatetask = ({ task: { _id, task, optional_image_sm } }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [btnLoading, setBtnLoading] = useState(false);
-
-
-    // fetch the task data by id from db
-    // useEffect(() => {
-    //     fetch(`http://localhost:4000/task/${taskid}`)
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             console.log(data);
-    //         })
-    //         .catch(error => console.error(error))
-    // }, [router])
+    const router = useRouter();
 
     const onSubmit = data => {
         setBtnLoading(true);
 
         let dataObject = {
             task: data.your_task,
-            task_completed: false,
         };
 
         if (data?.task_image?.length > 0) {
@@ -63,8 +52,8 @@ const updatetask = ({ task }) => {
 
     const saveTaskToDB = preparedData => {
         // post the data into database
-        fetch('http://localhost:4000/tasks', {
-            method: 'POST',
+        fetch(`http://localhost:4000/task/${_id}`, {
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
@@ -101,7 +90,7 @@ const updatetask = ({ task }) => {
                             rows={4}
                             required={true}
                             {...register('your_task')}
-                            defaultValue={task.task}
+                            defaultValue={task}
                         />
                     </div>
                     <div id="fileUpload">
@@ -111,11 +100,23 @@ const updatetask = ({ task }) => {
                                 value="(optional) Add an image with your task"
                             />
                         </div>
-                        <FileInput
-                            id="file"
-                            helperText="You can add an image with your task"
-                            {...register('task_image')}
-                        />
+                        <div className="flex items-center">
+                            <div className="mr-2">
+                                {
+                                    optional_image_sm ?
+                                        <div className="border border-black p-2 flex items-center flex-col">
+                                            <img className="h-10 w-10 mr-2" src={optional_image_sm} alt="" />
+                                            <p className="text-gray-400">(Old image preview)</p>
+                                        </div>
+                                        : ''
+                                }
+                            </div>
+                            <FileInput
+                                className="flex-1"
+                                id="file"
+                                {...register('task_image')}
+                            />
+                        </div>
                     </div>
                     <Button type="submit">
                         {
@@ -142,8 +143,8 @@ export default updatetask;
 export async function getServerSideProps(context) {
 
     const taskid = context.query.taskid;
-    const task = await fetch(`https://everyday-task-server-ashrafcse3.vercel.app/task/${taskid}`).then(res => res.json());
-    console.log(task);
+    const task = await fetch(`http://localhost:4000/task/${taskid}`).then(res => res.json());
+    // console.log(task);
     return {
         props: {
             task,
