@@ -13,8 +13,9 @@ const index = () => {
     const onSubmit = data => {
         setBtnLoading(true);
 
-        const dataObject = {
+        let dataObject = {
             task: data.your_task,
+            task_completed: false,
         };
 
         if (data?.task_image?.length > 0) {
@@ -33,22 +34,30 @@ const index = () => {
                     dataObject.optional_image_lg = result?.data?.image?.url;
                     dataObject.optional_image_md = result?.data?.medium?.url;
                     dataObject.optional_image_sm = result?.data?.thumb?.url;
+
+                    // save task to db with image
+                    saveTaskToDB(dataObject);
                 })
                 .catch((error) => {
                     console.error('Error:', error);
                 });
 
         }
+        else {
+            saveTaskToDB(dataObject);
+        }
 
-        // console.log('dataObject', dataObject);
+        console.log('dataObject', dataObject);
+    };
 
+    const saveTaskToDB = preparedData => {
         // post the data into database
         fetch('http://localhost:4000/tasks', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(dataObject)
+            body: JSON.stringify(preparedData)
         })
             .then(res => res.json())
             .then(resData => {
@@ -58,7 +67,7 @@ const index = () => {
                 // navigate to the my tasks page after data added
                 router.push('/mytasks');
             });
-    };
+    }
 
     return (
         <div className="bg-white text-black dark:bg-black dark:text-white max-w-[1200px] mx-auto px-2 sm:px-4">

@@ -4,6 +4,7 @@ import { RectangleStackIcon, SunIcon, MoonIcon } from "@heroicons/react/24/solid
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
+import { Toaster } from "react-hot-toast";
 
 const Nav1 = () => {
     const { systemTheme, theme, setTheme } = useTheme();
@@ -86,6 +87,10 @@ const Nav1 = () => {
                     {renderThemeChanger()}
                 </Navbar.Collapse>
             </Navbar>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
         </div>
     );
 };
