@@ -10,7 +10,6 @@ const Nav1 = () => {
     const [mounted, setMounted] = useState(false);
 
     const { user, logOut } = useContext(AuthContext);
-    console.log(user?.uid);
 
     useEffect(() => {
         setMounted(true);

@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
             }
             else {
                 setUser('');
-                console.log('user not logged in');
+                // console.log('user not logged in');
             }
         });
         return () => unsubscribe();
