@@ -1,14 +1,22 @@
 import Head from "next/head";
 import PageHeader from "../../components/shared/PageHeader";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import PageLoader from "next/dist/client/page-loader";
 import TaskDetails from "../../components/TaskDetails/TaskDetails";
 import TaskComment from "../../components/TaskComment/TaskComment";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const taskdetails = ({ task: { _id }, task }) => {
     const [btnLoading, setBtnLoading] = useState(false);
     const router = useRouter();
+    const { user } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (!user?.uid) {
+            router.push('/login');
+        }
+    }, [user, router]);
 
     return (
         <div className="bg-white text-black dark:bg-black dark:text-white max-w-[1200px] mx-auto px-2 sm:px-4">

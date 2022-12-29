@@ -2,14 +2,22 @@ import Head from "next/head";
 import { Label, Textarea, Button, Spinner, FileInput } from "flowbite-react";
 import PageHeader from "../../components/shared/PageHeader";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import PageLoader from "next/dist/client/page-loader";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const updatetask = ({ task: { _id, task, optional_image_sm } }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [btnLoading, setBtnLoading] = useState(false);
+    const { user } = useContext(AuthContext);
     const router = useRouter();
+
+    useEffect(() => {
+        if (!user?.uid) {
+            router.push('/login');
+        }
+    }, [user, router]);
 
     const onSubmit = data => {
         setBtnLoading(true);
