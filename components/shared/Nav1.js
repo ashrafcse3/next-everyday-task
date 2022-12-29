@@ -5,12 +5,17 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
 import { Toaster } from "react-hot-toast";
+import { useRouter } from "next/router";
 
 const Nav1 = () => {
     const { systemTheme, theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
+    const routerPathName = useRouter().pathname;
 
     const { user, logOut } = useContext(AuthContext);
+
+    const activeClasses = `block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white`;
+    const notActiveClasses = `block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent`;
 
     useEffect(() => {
         setMounted(true);
@@ -65,35 +70,37 @@ const Nav1 = () => {
                     {
                         user?.uid ?
                             <Link href="/addtask">
-                                {/* <Navbar.Link
-                            active={true}
-                        >
-
-                        </Navbar.Link> */}
-                                <span className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Add task</span>
+                                <span
+                                    className={routerPathName === "/addtask" ? activeClasses : notActiveClasses} aria-current="page">Add task</span>
 
                             </Link>
                             : ''
                     }
                     <Link href="/mytasks">
-                        <span className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">My tasks</span>
+                        <span
+                            className={routerPathName === "/mytasks" ? activeClasses : notActiveClasses} aria-current="page">My tasks</span>
                     </Link>
                     <Link href="/completedtasks">
-                        <span className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Completed tasks</span>
+                        <span
+                            className={routerPathName === "/completedtasks" ? activeClasses : notActiveClasses} aria-current="page">Completed tasks</span>
                     </Link>
-                    <span className="lg:block md:block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white hidden">|</span>
+                    <span className={`lg:block md:block ${activeClasses}`}>|</span>
                     {
                         !(user?.uid) ?
                             <>
                                 <Link href="/login">
-                                    <span className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Login</span>
+                                    <span
+                                        className={routerPathName === "/login" ? activeClasses : notActiveClasses} aria-current="page">Login</span>
                                 </Link>
                                 <Link href="/register">
-                                    <span className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Register</span>
+                                    <span
+                                        className={routerPathName === "/register" ? activeClasses : notActiveClasses} aria-current="page">Register</span>
                                 </Link>
                             </>
                             :
-                            <span onClick={handleLogOut} className="cursor-pointer block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Log out</span>
+                            <span
+                                onClick={handleLogOut}
+                                className={notActiveClasses} aria-current="page">Log out</span>
                     }
                     {renderThemeChanger()}
                 </Navbar.Collapse>
