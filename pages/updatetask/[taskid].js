@@ -52,7 +52,7 @@ const updatetask = ({ task: { _id, task, optional_image_sm } }) => {
 
     const saveTaskToDB = preparedData => {
         // post the data into database
-        fetch(`https://everyday-task-server-ashrafcse3.vercel.app/task/${_id}`, {
+        fetch(`http://localhost:4000/task/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -141,9 +141,8 @@ const updatetask = ({ task: { _id, task, optional_image_sm } }) => {
 export default updatetask;
 
 export async function getServerSideProps(context) {
-
     const taskid = context.query.taskid;
-    const task = await fetch(`https://everyday-task-server-ashrafcse3.vercel.app/task/${taskid}`).then(res => res.json());
+    const task = await fetch(`http://localhost:4000/task/${taskid}`).then(res => res.json());
     // console.log(task);
     return {
         props: {

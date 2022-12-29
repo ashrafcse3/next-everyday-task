@@ -1,8 +1,13 @@
 import { Card, Dropdown, Button } from "flowbite-react";
+import Link from "next/link";
+import { useContext } from "react";
 import { toast } from "react-hot-toast";
+import { AuthContext } from "../../contexts/AuthProvider";
 import { handleDeleteTask } from "../shared/js_functions/handleDeleteTask";
 
 const CompletedTasks = ({ task: { _id, task, optional_image_sm }, index, refetch }) => {
+    const { user } = useContext(AuthContext);
+
     const reduceTaskWords = () => {
         const splittedTask = task.split(" ");
         // join only 4 first words and then ...
@@ -16,7 +21,7 @@ const CompletedTasks = ({ task: { _id, task, optional_image_sm }, index, refetch
     }
 
     const handleNotCompleted = _id => {
-        fetch(`https://everyday-task-server-ashrafcse3.vercel.app/maketaskuncomplete/${_id}`, {
+        fetch(`http://localhost:4000/maketaskuncomplete/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -39,16 +44,20 @@ const CompletedTasks = ({ task: { _id, task, optional_image_sm }, index, refetch
                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     Completed Task {index}
                 </h5>
-                <Dropdown
-                    dismissOnClick={false}
-                >
-                    <Dropdown.Item>
-                        Add a comment
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleDeleteTask(_id, refetch)}>
-                        Delete
-                    </Dropdown.Item>
-                </Dropdown>
+                {
+                    user?.uid ?
+                        <Dropdown
+                            dismissOnClick={false}
+                        >
+                            <Dropdown.Item>
+                                Add a comment
+                            </Dropdown.Item>
+                            <Dropdown.Item onClick={() => handleDeleteTask(_id, refetch)}>
+                                Delete
+                            </Dropdown.Item>
+                        </Dropdown>
+                        : ''
+                }
             </div>
             <div className="flex justify-between">
                 <p className="font-normal text-gray-700 dark:text-gray-400">
@@ -62,9 +71,17 @@ const CompletedTasks = ({ task: { _id, task, optional_image_sm }, index, refetch
                         : ''
                 }
             </div>
-            <Button size="xs" onClick={() => handleNotCompleted(_id)}>
-                Make not completed
-            </Button>
+            {
+                user?.uid ?
+                    <Button size="xs" onClick={() => handleNotCompleted(_id)}>
+                        Make not completed
+                    </Button>
+                    :
+                    <div className="font-normal text-gray-500 dark:text-gray-400">
+                        (<Link href="/login" className="text-blue-700 dark:text-white">Login </Link>
+                        to see more options)
+                    </div>
+            }
         </Card>
     );
 };

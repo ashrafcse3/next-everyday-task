@@ -48,29 +48,40 @@ const Nav1 = () => {
                 fluid={true}
                 rounded={true}
             >
-                <Navbar.Brand >
+                {/* <Navbar.Brand >
+                        <RectangleStackIcon className="mr-3 h-6 sm:h-9 text-black dark:text-white" />
+                        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white text-black">
+                            Everyday task
+                        </span>
+                    </Navbar.Brand> */}
+                <Link href="/mytasks" className="flex items-center">
                     <RectangleStackIcon className="mr-3 h-6 sm:h-9 text-black dark:text-white" />
                     <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white text-black">
                         Everyday task
                     </span>
-                </Navbar.Brand>
+                </Link>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="flex justify-center items-center">
-                    <Link href="/addtask">
-                        {/* <Navbar.Link
+                    {
+                        user?.uid ?
+                            <Link href="/addtask">
+                                {/* <Navbar.Link
                             active={true}
                         >
 
                         </Navbar.Link> */}
-                        <span className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Add task</span>
+                                <span className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Add task</span>
 
-                    </Link>
+                            </Link>
+                            : ''
+                    }
                     <Link href="/mytasks">
                         <span className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">My tasks</span>
                     </Link>
                     <Link href="/completedtasks">
                         <span className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Completed tasks</span>
                     </Link>
+                    <span className="lg:block md:block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white hidden">|</span>
                     {
                         !(user?.uid) ?
                             <>
