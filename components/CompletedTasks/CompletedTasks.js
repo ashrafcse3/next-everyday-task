@@ -4,24 +4,13 @@ import { useContext } from "react";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../../contexts/AuthProvider";
 import { handleDeleteTask } from "../shared/js_functions/handleDeleteTask";
+import { reduceTaskWords } from "../shared/js_functions/reduceTaskWords";
 
 const CompletedTasks = ({ task: { _id, task, optional_image_sm }, index, refetch }) => {
     const { user } = useContext(AuthContext);
 
-    const reduceTaskWords = () => {
-        const splittedTask = task.split(" ");
-        // join only 4 first words and then ...
-        if (splittedTask.length < 4) {
-            return splittedTask.join(' ');
-        }
-        else {
-            const firstFewWords = splittedTask.slice(0, 4).join(' ');
-            return `${firstFewWords} ....`;
-        }
-    }
-
     const handleNotCompleted = _id => {
-        fetch(`http://localhost:4000/maketaskuncomplete/${_id}`, {
+        fetch(`https://everyday-task-server-ashrafcse3.vercel.app/maketaskuncomplete/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -62,7 +51,7 @@ const CompletedTasks = ({ task: { _id, task, optional_image_sm }, index, refetch
             <div className="flex justify-between">
                 <p className="font-normal text-gray-700 dark:text-gray-400">
                     {
-                        reduceTaskWords()
+                        reduceTaskWords(task, _id)
                     }
                 </p>
                 {
