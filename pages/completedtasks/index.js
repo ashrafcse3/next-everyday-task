@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import Head from "next/head";
 import CompletedTasks from "../../components/CompletedTasks/CompletedTasks";
 import PageHeader from "../../components/shared/PageHeader";
+import PageLoader from "../../components/shared/PageLoader";
 
 const index = () => {
     const { data: tasks, refetch } = useQuery({
@@ -11,6 +12,8 @@ const index = () => {
             return response.json();
         }
     });
+
+    if (!tasks) return <PageLoader />;
 
     return (
         <div>

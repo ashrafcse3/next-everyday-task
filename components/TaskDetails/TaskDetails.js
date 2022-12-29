@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { handleDeleteTask } from "../shared/js_functions/handleDeleteTask";
 import { reduceTaskWords } from "../shared/js_functions/reduceTaskWords";
 
-const UpdateTask = ({ task: { _id, task, optional_image_lg, task_completed } }) => {
+const TaskDetails = ({ task: { _id, task, optional_image_lg, task_completed } }) => {
 
     // const [isTaskCompleted, setIsTaskCompleted] = useState(task_completed);
 
@@ -13,7 +13,7 @@ const UpdateTask = ({ task: { _id, task, optional_image_lg, task_completed } }) 
     //     console.log('handleCompleteTask', isTaskCompleted);
     //     setIsTaskCompleted(!isTaskCompleted);
     //     console.log('after handleCompleteTask', isTaskCompleted);
-    //     // fetch(`http://localhost:4000/maketaskcomplete/${_id}`, {
+    //     // fetch(`https://everyday-task-server-ashrafcse3.vercel.app/maketaskcomplete/${_id}`, {
     //     //     method: 'PUT',
     //     //     headers: {
     //     //         'content-type': 'application/json'
@@ -32,7 +32,7 @@ const UpdateTask = ({ task: { _id, task, optional_image_lg, task_completed } }) 
 
     // const handleNotCompleted = _id => {
     //     console.log('handleNotCompleted');
-    //     // fetch(`http://localhost:4000/maketaskuncomplete/${_id}`, {
+    //     // fetch(`https://everyday-task-server-ashrafcse3.vercel.app/maketaskuncomplete/${_id}`, {
     //     //     method: 'PUT',
     //     //     headers: {
     //     //         'content-type': 'application/json'
@@ -50,7 +50,7 @@ const UpdateTask = ({ task: { _id, task, optional_image_lg, task_completed } }) 
     // }
 
     return (
-        <Card className="">
+        <div className="border p-4 shadow-lg">
             <div className="flex justify-between">
                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     Task details
@@ -86,8 +86,8 @@ const UpdateTask = ({ task: { _id, task, optional_image_lg, task_completed } }) 
                         Complete this task
                     </Button>
             } */}
-        </Card>
+        </div>
     );
 };
 
-export default UpdateTask;
+export default TaskDetails;

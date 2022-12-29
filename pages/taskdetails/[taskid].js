@@ -1,11 +1,9 @@
 import Head from "next/head";
-import { Label, Textarea, Button, Spinner, FileInput } from "flowbite-react";
 import PageHeader from "../../components/shared/PageHeader";
-import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import PageLoader from "next/dist/client/page-loader";
-import UpdateTask from "../../components/UpdateTask/UpdateTask";
+import TaskDetails from "../../components/TaskDetails/TaskDetails";
 import TaskComment from "../../components/TaskComment/TaskComment";
 
 const taskdetails = ({ task: { _id }, task }) => {
@@ -20,12 +18,12 @@ const taskdetails = ({ task: { _id }, task }) => {
             <PageHeader title='Task details' />
             <main>
                 <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-                    <UpdateTask task={task} />
-                    {/* <TaskComment taskId={_id} /> */}
-                    <div className="flex justify-center items-center">
+                    <TaskDetails task={task} />
+                    <TaskComment taskId={_id} />
+                    {/* <div className="flex justify-center items-center">
                         Comments will be here<br />
                         Coming soon...
-                    </div>
+                    </div> */}
                 </div>
             </main >
         </div >

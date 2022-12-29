@@ -1,7 +1,7 @@
 import { toast } from "react-hot-toast";
 
 export const handleDeleteTask = (_id, refetch) => {
-    fetch(`http://localhost:4000/task/${_id}`, {
+    fetch(`https://everyday-task-server-ashrafcse3.vercel.app/task/${_id}`, {
         method: 'DELETE',
         headers: {
             'content-type': 'application/json'

@@ -38,9 +38,11 @@ const CompletedTasks = ({ task: { _id, task, optional_image_sm }, index, refetch
                         <Dropdown
                             dismissOnClick={false}
                         >
-                            <Dropdown.Item>
-                                Add a comment
-                            </Dropdown.Item>
+                            <Link href={`/taskdetails/${_id}`} className="text-blue-500 dark:text-gray-200">
+                                <Dropdown.Item>
+                                    Add a comment
+                                </Dropdown.Item>
+                            </Link>
                             <Dropdown.Item onClick={() => handleDeleteTask(_id, refetch)}>
                                 Delete
                             </Dropdown.Item>
