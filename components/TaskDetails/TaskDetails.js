@@ -2,7 +2,7 @@ import { Card, Dropdown, Button } from "flowbite-react";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { handleDeleteTask } from "../shared/js_functions/handleDeleteTask";
+
 import { reduceTaskWords } from "../shared/js_functions/reduceTaskWords";
 
 const TaskDetails = ({ task: { _id, task, optional_image_lg, task_completed } }) => {
@@ -63,9 +63,6 @@ const TaskDetails = ({ task: { _id, task, optional_image_lg, task_completed } })
                             Update
                         </Dropdown.Item>
                     </Link>
-                    <Dropdown.Item onClick={() => handleDeleteTask(_id)}>
-                        Delete
-                    </Dropdown.Item>
                 </Dropdown>
             </div>
             <p className="font-normal text-gray-700 dark:text-gray-400">

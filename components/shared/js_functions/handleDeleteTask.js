@@ -9,8 +9,8 @@ export const handleDeleteTask = (_id, refetch) => {
     })
         .then(res => res.json())
         .then(data => {
-            refetch();
             toast.success('Task deleted successfully');
+            refetch();
         })
         .catch(error => {
             console.error(error);
