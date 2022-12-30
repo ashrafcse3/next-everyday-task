@@ -10,11 +10,19 @@ import { AuthContext } from "../../contexts/AuthProvider";
 const updatetask = ({ task: { _id, task, optional_image_sm } }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [btnLoading, setBtnLoading] = useState(false);
-    const { user } = useContext(AuthContext);
+    const { user, isUserLoading } = useContext(AuthContext);
     const router = useRouter();
 
     useEffect(() => {
-        if (!user?.uid) {
+        if (isUserLoading) {
+            // If the page get reloaded manually
+            // And the user is logged in then this if check will hold this page until it get information about the user.
+
+
+            // by return anything it makes an error, so I left this test case empty
+            // return <PageLoader />;
+        }
+        else if (!user?.uid) {
             router.push('/login');
         }
     }, [user, router]);

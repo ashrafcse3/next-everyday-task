@@ -9,7 +9,8 @@ import EachComment from './EachComment';
 const TaskComment = ({ taskId }) => {
     const [addBtnLoading, setAddBtnLoading] = useState(false);
     const [deleteBtnLoading, setDeleteBtnLoading] = useState(false);
-    const { register, handleSubmit, reset, formState: { isSubmitSuccessful } } = useForm();
+    const [textAreaRow, setTextAreaRow] = useState(1);
+    const { register, handleSubmit, reset } = useForm();
 
     const { data: comments, refetch, isLoading } = useQuery({
         queryKey: ['comments'],
@@ -35,6 +36,29 @@ const TaskComment = ({ taskId }) => {
 
         // console.log('dataObject', dataObject);
     };
+
+    const handleKeyDown = event => {
+        const commentText = document.getElementById('comment');
+
+        if (event.key === 'Enter' && event.ctrlKey) {
+            console.log('ctrl+enter btn clicked');
+            // to add a new row
+            setTextAreaRow(textAreaRow + 1);
+            // to add a new line
+            commentText.value = `${commentText.value} \n`
+        }
+        else if (event.key === 'Enter') {
+            console.log('enter btn clicked');
+            setAddBtnLoading(true);
+
+            let dataObject = {
+                comment: commentText.value,
+                task_id: taskId
+            };
+
+            saveCommentToDB(dataObject);
+        }
+    }
 
     const saveCommentToDB = preparedData => {
         // post the data into database
@@ -116,10 +140,12 @@ const TaskComment = ({ taskId }) => {
                     <Textarea
                         id="comment"
                         placeholder="Write your Comment"
-                        rows={4}
+                        rows={textAreaRow}
                         required={true}
+                        onKeyDown={handleKeyDown}
                         {...register('your_comment')}
                     />
+                    <p className='font-light text-sm text-gray-500 dark:text-gray-600 text-center'>(Press enter to save the comment || Press ctrl+Enter to add a new line)</p>
                 </div>
                 <Button type="submit">
                     {addButtonLoading}

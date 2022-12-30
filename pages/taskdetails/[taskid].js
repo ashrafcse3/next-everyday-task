@@ -2,18 +2,30 @@ import Head from "next/head";
 import PageHeader from "../../components/shared/PageHeader";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import PageLoader from "next/dist/client/page-loader";
 import TaskDetails from "../../components/TaskDetails/TaskDetails";
 import TaskComment from "../../components/TaskComment/TaskComment";
 import { AuthContext } from "../../contexts/AuthProvider";
+import PageLoader from "../../components/shared/PageLoader";
 
 const taskdetails = ({ task: { _id }, task }) => {
     const [btnLoading, setBtnLoading] = useState(false);
     const router = useRouter();
-    const { user } = useContext(AuthContext);
+    const { user, isUserLoading } = useContext(AuthContext);
+
+    // if (isUserLoading) {
+    //     return <PageLoader />;
+    // }
 
     useEffect(() => {
-        if (!user?.uid) {
+        if (isUserLoading) {
+            // If the page get reloaded manually
+            // And the user is logged in then this if check will hold this page until it get information about the user.
+
+
+            // by return anything it makes an error, so I left this test case empty
+            // return <PageLoader />;
+        }
+        else if (!user?.uid) {
             router.push('/login');
         }
     }, [user, router]);
