@@ -26,7 +26,8 @@ const taskdetails = ({ task: { _id }, task }) => {
             // return <PageLoader />;
         }
         else if (!user?.uid) {
-            router.push('/login');
+            // router.push('/login');
+            router.push(`/login?referrer=${router.asPath}`, '/login');
         }
     }, [user, router]);
 
@@ -56,7 +57,7 @@ export async function getServerSideProps(context) {
     const taskid = context.query.taskid;
     // fetch the task details with comment
     const task = await fetch(`https://everyday-task-server-ashrafcse3.vercel.app/task/${taskid}`).then(res => res.json());
-    console.log(task);
+    // console.log(task);
     return {
         props: {
             task,

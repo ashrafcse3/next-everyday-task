@@ -23,7 +23,8 @@ const updatetask = ({ task: { _id, task, optional_image_sm } }) => {
             // return <PageLoader />;
         }
         else if (!user?.uid) {
-            router.push('/login');
+            // console.log(router.asPath);
+            router.push(`/login?referrer=${router.asPath}`, '/login');
         }
     }, [user, router]);
 
@@ -45,7 +46,7 @@ const updatetask = ({ task: { _id, task, optional_image_sm } }) => {
             })
                 .then((response) => response.json())
                 .then((result) => {
-                    console.log('Success:', result);
+                    // console.log('Success:', result);
 
                     dataObject.optional_image_lg = result?.data?.image?.url;
                     dataObject.optional_image_md = result?.data?.medium?.url;
@@ -63,7 +64,7 @@ const updatetask = ({ task: { _id, task, optional_image_sm } }) => {
             saveTaskToDB(dataObject);
         }
 
-        console.log('dataObject', dataObject);
+        // console.log('dataObject', dataObject);
     };
 
     const saveTaskToDB = preparedData => {

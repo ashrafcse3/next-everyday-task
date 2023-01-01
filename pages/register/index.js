@@ -22,7 +22,8 @@ const index = () => {
                 const user = result.user;
                 console.log(user);
                 toast.success('User created successfully');
-                router.push('/mytasks');
+                // router.push('/mytasks');
+                router.push(router.query?.referrer || '/mytasks');
             })
             .catch(error => {
                 // console.log(error);
