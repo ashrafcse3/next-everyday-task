@@ -58,6 +58,30 @@ const index = () => {
         console.log('dataObject', dataObject);
     };
 
+    const handleKeyDown = (data, event) => {
+        console.log(data);
+        // const commentText = document.getElementById('comment');
+
+        if (event.key === 'Enter' && event.ctrlKey) {
+            console.log('ctrl+enter btn clicked');
+            //     // to add a new row
+            //     setTextAreaRow(textAreaRow + 1);
+            //     // to add a new line
+            //     commentText.value = `${commentText.value} \n`
+        }
+        else if (event.key === 'Enter') {
+            console.log('enter btn clicked');
+            //     setAddBtnLoading(true);
+
+            //     let dataObject = {
+            //         comment: commentText.value,
+            //         task_id: taskId
+            // };
+
+            //     saveCommentToDB(dataObject);
+        }
+    }
+
     const saveTaskToDB = preparedData => {
         // post the data into database
         fetch('https://everyday-task-server-ashrafcse3.vercel.app/tasks', {
@@ -84,7 +108,7 @@ const index = () => {
             </Head>
             <PageHeader title='Add Task' />
             <main>
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+                <form onKeyDown={() => handleSubmit(handleKeyDown)} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                     <div id="textarea">
                         <div className="mb-2 block">
                             <Label
