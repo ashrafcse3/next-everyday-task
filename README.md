@@ -5,7 +5,7 @@
 ## Back end code repo: https://github.com/ashrafcse3/everyday-task-server
 
 ## Project screenshots:
-![Screenshot 1](https://i.ibb.co/KFf2P54/Screenshot-2023-01-07-at-12-00-17-pm.png)
+[![Screenshot 1](https://i.ibb.co/KFf2P54/Screenshot-2023-01-07-at-12-00-17-pm.png)](https://i.ibb.co/6gTHMy9/Screenshot-2023-01-07-at-12-00-17-pm.png)
 
 ## Project detail's: 
 * Users can add a task with an optional image, 
