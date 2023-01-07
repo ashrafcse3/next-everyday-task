@@ -10,7 +10,8 @@ import { useRouter } from "next/router";
 const Nav1 = () => {
     const { systemTheme, theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
-    const routerPathName = useRouter().pathname;
+    const router = useRouter();
+    const routerPathName = router.pathname;
 
     const { user, logOut } = useContext(AuthContext);
 
@@ -74,7 +75,11 @@ const Nav1 = () => {
                                     className={routerPathName === "/addtask" ? activeClasses : notActiveClasses} aria-current="page">Add task</span>
 
                             </Link>
-                            : ''
+                            :
+                            <Link href="/login?referrer=/addtask">
+                                <span
+                                    className={notActiveClasses}>Add task</span>
+                            </Link>
                     }
                     <Link href="/mytasks">
                         <span
